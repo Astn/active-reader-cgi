@@ -46,12 +46,14 @@ int main(int argc, char** argv, char** envp) {
 	ActivePower=0..100
 	ActiveTime=YYYYMMDD-HHMMSS
 	*/
-	char* eventName = NULL;
-	char* pointName = NULL;
+	char eventName[100];
+	char pointName[100];
 	int loopId = 0;
 	int activeChannel =0;
 	int activePower = 0;
-	char* activeTime = NULL;
+	char activeTime[50];
+
+	char* argEventName = "EventName";
 
 	printf("<pre>");
 	char * queryString = getenv("QUERY_STRING");
@@ -60,7 +62,13 @@ int main(int argc, char** argv, char** envp) {
 		// as tokens
 		char * pch =  strtok (queryString, "&");
 		while(pch != NULL){
-			printf ("%s\n",pch);
+			printf ("Found: %s\n",pch);
+
+			if(strncmp(pch,argEventName,strlen(argEventName))==0 && strlen(pch) > strlen(argEventName)+1){
+				strncpy(eventName, pch+strlen(argEventName)+1, sizeof(eventName));
+				printf("Captured %s as %s\n",argEventName, eventName);
+			}
+
 			pch = strtok (NULL, "&");
 		}
 	}

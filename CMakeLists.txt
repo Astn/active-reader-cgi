@@ -16,5 +16,5 @@ use_c99()
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(danscgi src/main.c )
+add_executable(danscgi src/main.c src/settings.c)
 

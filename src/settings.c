@@ -181,8 +181,8 @@ void SettingsFromActual(struct Settings_t *s) {
     char line[200];
     printf("<!--\n"
                    "DEBUG\n"
-                   "> /home/dhr/configure ");
-    FILE* output = popen("/home/dhr/configure ", "r");
+                   "> /home/drh/configure ");
+    FILE* output = popen("/home/drh/configure ", "r");
 
     while ( fgets(line, 199, output) )
     {
@@ -193,7 +193,7 @@ void SettingsFromActual(struct Settings_t *s) {
 }
 
 void SettingsApply(struct Settings_t *s) {
-    const char* programPath = "/home/dhr/configure";
+    const char* programPath = "/home/drh/configure";
     char argStr[1200];
     char buffer[200];
 

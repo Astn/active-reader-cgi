@@ -179,7 +179,7 @@ void SettingsFromActual(struct Settings_t *s) {
     SettingsInit(s);
     int entry = 1;
     char line[200];
-    printf("<--\n"
+    printf("<!--\n"
                    "DEBUG\n"
                    "> /home/dhr/configure ");
     FILE* output = popen("/home/dhr/configure ", "r");
@@ -225,7 +225,7 @@ void SettingsApply(struct Settings_t *s) {
     char command[1300];
     sprintf(command,"%s -p %s",programPath,argStr);
     char line[200];
-    printf("<--\n"
+    printf("<!--\n"
                    "DEBUG\n"
                    "> %s\n",command);
 

@@ -45,7 +45,7 @@ int match(const char *string, char *pattern) {
 
 bool isValidActiveTime(char *activeTime) {
     // YYYY/MM/DD HH:MM:SS
-    char* pattern = "^[0-9]{4}/[01]/[0-9][0-3][0-9] [012][0-9]:[0-6][0-9]:[0-6][0-9]";
+    char* pattern = "^[0-9]{4}/[01][0-9]/[0-3][0-9] [012][0-9]:[0-6][0-9]:[0-6][0-9]";
     if(match(activeTime, pattern) ==1){
         return true;
     }    else {

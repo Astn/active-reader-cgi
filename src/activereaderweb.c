@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <regex.h>
 
-#include "main.h"
+#include "activereaderweb.h"
 
 
 void renderStatus(struct Settings_t* desired, struct Settings_t* actual){

@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 2.8.9)
-project(activereadercgi C)
+project(activereaderweb C)
 
 
 macro(use_c99)
@@ -15,10 +15,7 @@ endmacro(use_c99)
 
 use_c99()
 
-
-
-
 set(CMAKE_C_STANDARD 99)
 
-add_executable(activereadercgi src/main.c src/settings.c)
+add_executable(activereaderweb src/activereaderweb.c src/settings.c)
 

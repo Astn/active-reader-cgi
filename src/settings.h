@@ -2,8 +2,8 @@
 // Created by astn on 3/6/18.
 //
 
-#ifndef DANSCGI_SETTINGS_H
-#define DANSCGI_SETTINGS_H
+#ifndef ACTIVEREADERCGI_SETTINGS_H
+#define ACTIVEREADERCGI_SETTINGS_H
 
 #include <stdbool.h>
 
@@ -13,15 +13,15 @@
 #define ACTIVECHANNEL "ActiveChannel"
 #define ACTIVEPOWER "ActivePower"
 #define ACTIVETIME "ActiveTime"
-#define szStrName 100
-#define szTime 15
+#define lenStrName 100
+#define lenTime 15
 #define MSG_PARSEERROR_EVENTNAME EVENTNAME " must have a length more than 2 and less than 100"
 #define MSG_PARSEERROR_POINTNAME POINTNAME " must have a length more than 2 and less than 100"
 #define MSG_PARSEERROR_LOOPID LOOPID " was out of range. Expected: 0..7"
 #define MSG_PARSEERROR_ACTIVECHANNEL ACTIVECHANNEL " was out of range. Expected: 0..7"
 #define MSG_PARSEERROR_ACTIVEPOWER ACTIVEPOWER " was out of range. Expected: 0..100"
-#define MSG_PARSEERROR_ACTIVETIME ACTIVETIME " was not in the expected format. Expected: YYYMMDD-HHMMSS"
-#define szErrorMessages 6
+#define MSG_PARSEERROR_ACTIVETIME ACTIVETIME " was not in the expected format. Expected: YYYY/MM/DD HH:MM:SS"
+#define lenErrorMessages 6
 // parameters we handle:
 /*
 EventName=????????????????  (ASCII)
@@ -35,9 +35,9 @@ struct SettingsValues_t{
     int loopId ;
     int activeChannel;
     int activePower;
-    char eventName[szStrName];
-    char pointName[szStrName];
-    char activeTime[szTime];
+    char eventName[lenStrName];
+    char pointName[lenStrName];
+    char activeTime[lenTime];
 };
 struct SettingsFound_t{
     bool loopId;
@@ -62,7 +62,7 @@ struct SettingsError_t{
     bool eventName;
     bool pointName;
     bool activeTime;
-    char* messages[szErrorMessages];
+    char* messages[lenErrorMessages];
 };
 struct Settings_t{
     struct SettingsValues_t values;
@@ -83,4 +83,4 @@ void SettingsFromActual(struct Settings_t *s);
 void SettingsApply(struct Settings_t *s);
 
 
-#endif //DANSCGI_SETTINGS_H
+#endif //ACTIVEREADERCGI_SETTINGS_H

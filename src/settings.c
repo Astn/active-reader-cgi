@@ -29,6 +29,9 @@ int match(const char *string, char *pattern) {
     int    status;
     regex_t    re;
 
+    int a1 = 20;
+    int b1 = 37;
+
     if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
         return(0);      /* report error */
     }
@@ -41,8 +44,8 @@ int match(const char *string, char *pattern) {
 }
 
 bool isValidActiveTime(char *activeTime) {
-    // YYYYMMDD-HHMMSS
-    char* pattern = "^[0-9]{4}[01][0-9][0-3][0-9]-[012][0-9][0-6][0-9][0-6][0-9]$";
+    // YYYY/MM/DD HH:MM:SS
+    char* pattern = "^[0-9]{4}/[01]/[0-9][0-3][0-9] [012][0-9]:[0-6][0-9]:[0-6][0-9]";
     if(match(activeTime, pattern) ==1){
         return true;
     }    else {
@@ -54,7 +57,7 @@ bool isValidActiveTime(char *activeTime) {
 
 void SettingsError_AddMessage(struct SettingsError_t *e, char *msg) {
     int i = 0;
-    while (i < szErrorMessages) {
+    while (i < lenErrorMessages) {
         if(e->messages[i] == NULL){
             e->messages[i] = msg;
             break;
@@ -68,9 +71,9 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
     char argValue[100];
     if (parsearg(pch, EVENTNAME, argValue, sizeof(argValue)) == 1) {
         s->found.eventName = true;
-        if(strlen(argValue) > 2 && strlen(argValue) < szStrName){
+        if(strlen(argValue) > 2 && strlen(argValue) < lenStrName){
             s->parsed.eventName = true;
-            strncpy(s->values.eventName, argValue, szStrName);
+            strncpy(s->values.eventName, argValue, lenStrName);
         } else {
             s->error.eventName = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_EVENTNAME);
@@ -78,9 +81,9 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
     }
     if (parsearg(pch, POINTNAME, argValue, sizeof(argValue)) == 1) {
         s->found.pointName = true;
-        if(strlen(argValue) > 2 && strlen(argValue) < szStrName) {
+        if(strlen(argValue) > 2 && strlen(argValue) < lenStrName) {
             s->parsed.pointName = true;
-            strncpy(s->values.pointName, argValue, szStrName);
+            strncpy(s->values.pointName, argValue, lenStrName);
         } else {
             s->error.pointName = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_POINTNAME);
@@ -123,7 +126,7 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
         s->found.activeTime = true;
         if(isValidActiveTime(argValue)){
             s->parsed.activeTime = true;
-            strncpy(s->values.activeTime, argValue, szTime);
+            strncpy(s->values.activeTime, argValue, lenTime);
         }else{
             s->error.activeTime = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_ACTIVETIME);
@@ -131,15 +134,15 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
     }
 }
 void SettingsInit(struct Settings_t *s){
-    for (int i = 0; i < szErrorMessages; ++i) {
+    for (int i = 0; i < lenErrorMessages; ++i) {
         s->error.messages[i] = NULL;
     }
     s->values.activeChannel=0;
     s->values.activePower=0;
     s->values.loopId=0;
-    memset(s->values.eventName,0,szStrName);
-    memset(s->values.pointName,0,szStrName);
-    memset(s->values.activeTime,0,szTime);
+    memset(s->values.eventName,0,lenStrName);
+    memset(s->values.pointName,0,lenStrName);
+    memset(s->values.activeTime,0,lenTime);
 
 
     s->found.loopId=false;

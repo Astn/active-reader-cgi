@@ -50,8 +50,8 @@ void renderStatus(struct Settings_t* desired, struct Settings_t* actual){
            "<input type=\"text\" name=\"" ACTIVECHANNEL "\" value=\"%i\"></br>\n"
            ACTIVEPOWER  ":<br />\n"
            "<input type=\"text\" name=\"" ACTIVEPOWER "\"   value=\"%i\"></br>\n"
-           ACTIVETIME ":<br />\n"
-           "<input type=\"text\" name=\"" ACTIVETIME "\"    value=\"%s\"></br>\n"
+           ACTIVETIME ": %s <br />\n"
+           "<input type=\"text\" name=\"" ACTIVETIME "\"    value=\"\"></br>\n"
            "<input type=\"submit\" name=\"submit\" value=\"submit\"></br>\n"
            "</form>\n",
            actual->values.eventName,

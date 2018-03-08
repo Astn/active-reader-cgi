@@ -266,5 +266,6 @@ void SettingsApply(struct Settings_t *s) {
     {
         printf("%s", line);
     }
+    pclose(output);
     printf("-->\n");
 }

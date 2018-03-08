@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <regex.h>
+#include <errno.h>
 
 #include "settings.h"
 
@@ -28,14 +29,19 @@ bool inRange(int in, int min, int max) {
 int match(const char *string, char *pattern) {
     int    status;
     regex_t    re;
-
-    int a1 = 20;
-    int b1 = 37;
+    char		buffer[100];
 
     if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
         return(0);      /* report error */
     }
-    status = regexec(&re, string, (size_t) 0, NULL, 0);
+    if ((status = regexec(&re, string, (size_t) 0, NULL, 0)) != 0)  {
+        regerror(status, &re, buffer, 100);
+        printf("<!--\n");
+        printf("regcomp() failed with '%s - %d'\n", buffer, errno);
+        printf("\nPattern: %s", pattern);
+        printf("\nString: %s %i", string, (int)strlen(string));
+        printf("-->\n");
+    }
     regfree(&re);
     if (status != 0) {
         return(0);      /* report error */
@@ -240,4 +246,3 @@ void SettingsApply(struct Settings_t *s) {
     }
     printf("-->\n");
 }
-

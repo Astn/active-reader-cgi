@@ -9,9 +9,9 @@
 
 #define EVENTNAME "EventName"
 #define POINTNAME "PointName"
-#define LOOPID "LoopId"
-#define ACTIVECHANNEL "ActiveChannel"
-#define ACTIVEPOWER "ActivePower"
+#define LOOPID "ACTIVE.LoopId"
+#define ACTIVECHANNEL "ACTIVE.Channel"
+#define ACTIVEPOWER "ACTIVE.Power"
 #define ACTIVETIME "ActiveTime"
 #define lenStrName 100
 #define lenTime 15

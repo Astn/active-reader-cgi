@@ -21,12 +21,12 @@ void renderStatus(struct Settings_t* desired, struct Settings_t* actual){
     // render errors from previous form submission
     if(desired!=NULL){
         if(desired->error.activeTime
-        || desired->error.activePower
-        || desired->error.activeChannel
-        || desired->error.loopId
-        || desired->error.pointName
-        || desired->error.eventName
-        ){
+           || desired->error.activePower
+           || desired->error.activeChannel
+           || desired->error.loopId
+           || desired->error.pointName
+           || desired->error.eventName
+                ){
             printf("<ul>\n");
             int ctr = 0;
             while(desired->error.messages[ctr] != NULL){
@@ -40,20 +40,20 @@ void renderStatus(struct Settings_t* desired, struct Settings_t* actual){
 
     // render actual state form
     printf("<form method=\"get\">\n"
-           EVENTNAME ":<br />\n"
-           "<input type=\"text\" name=\"" EVENTNAME "\"     value=\"%s\"></br>\n"
-           POINTNAME ":<br />\n"
-           "<input type=\"text\" name=\"" POINTNAME "\"     value=\"%s\"></br>\n"
-           LOOPID ":<br />\n"
-           "<input type=\"text\" name=\"" LOOPID "\"        value=\"%i\"></br>\n"
-           ACTIVECHANNEL  ":<br />\n"
-           "<input type=\"text\" name=\"" ACTIVECHANNEL "\" value=\"%i\"></br>\n"
-           ACTIVEPOWER  ":<br />\n"
-           "<input type=\"text\" name=\"" ACTIVEPOWER "\"   value=\"%i\"></br>\n"
-           ACTIVETIME ": %s <br />\n"
-           "<input type=\"text\" name=\"" ACTIVETIME "\"    value=\"\"></br>\n"
-           "<input type=\"submit\" name=\"submit\" value=\"submit\"></br>\n"
-           "</form>\n",
+               EVENTNAME ":<br />\n"
+               "<input type=\"text\" name=\"" EVENTNAME "\"     value=\"%s\"></br>\n"
+               POINTNAME ":<br />\n"
+               "<input type=\"text\" name=\"" POINTNAME "\"     value=\"%s\"></br>\n"
+               LOOPID ":<br />\n"
+               "<input type=\"text\" name=\"" LOOPID "\"        value=\"%i\"></br>\n"
+               ACTIVECHANNEL  ":<br />\n"
+               "<input type=\"text\" name=\"" ACTIVECHANNEL "\" value=\"%i\"></br>\n"
+               ACTIVEPOWER  ":<br />\n"
+               "<input type=\"text\" name=\"" ACTIVEPOWER "\"   value=\"%i\"></br>\n"
+               ACTIVETIME ": %s <br />\n"
+               "<input type=\"text\" name=\"" ACTIVETIME "\"    value=\"\"></br>\n"
+               "<input type=\"submit\" name=\"submit\" value=\"submit\"></br>\n"
+               "</form>\n",
            actual->values.eventName,
            actual->values.pointName,
            actual->values.loopId,

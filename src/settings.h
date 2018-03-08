@@ -14,7 +14,7 @@
 #define ACTIVEPOWER "ACTIVE.Power"
 #define ACTIVETIME "ActiveTime"
 #define lenStrName 100
-#define lenTime 15
+#define lenTime 19
 #define MSG_PARSEERROR_EVENTNAME EVENTNAME " must have a length more than 2 and less than 100"
 #define MSG_PARSEERROR_POINTNAME POINTNAME " must have a length more than 2 and less than 100"
 #define MSG_PARSEERROR_LOOPID LOOPID " was out of range. Expected: 0..7"

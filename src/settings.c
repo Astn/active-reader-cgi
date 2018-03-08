@@ -73,13 +73,24 @@ void SettingsError_AddMessage(struct SettingsError_t *e, char *msg) {
 
 }
 
+unsigned long min(unsigned long a, unsigned long b){
+    if (a > b){
+        return b;
+    }
+    else {
+        return a;
+    }
+
+}
+
 void SettingsParsePair(struct Settings_t *s, char *pch) {
     char argValue[100];
     if (parsearg(pch, EVENTNAME, argValue, sizeof(argValue)) == 1) {
         s->found.eventName = true;
         if(strlen(argValue) > 2 && strlen(argValue) < lenStrName){
             s->parsed.eventName = true;
-            strncpy(s->values.eventName, argValue, lenStrName);
+            unsigned long nl = strchr(argValue, '\n') - argValue;
+            strncpy(s->values.eventName, argValue, min(lenStrName,nl));
         } else {
             s->error.eventName = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_EVENTNAME);
@@ -89,7 +100,8 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
         s->found.pointName = true;
         if(strlen(argValue) > 2 && strlen(argValue) < lenStrName) {
             s->parsed.pointName = true;
-            strncpy(s->values.pointName, argValue, lenStrName);
+            unsigned long nl = strchr(argValue, '\n') - argValue;
+            strncpy(s->values.pointName, argValue, min(lenStrName,nl));
         } else {
             s->error.pointName = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_POINTNAME);
@@ -132,7 +144,8 @@ void SettingsParsePair(struct Settings_t *s, char *pch) {
         s->found.activeTime = true;
         if(isValidActiveTime(argValue)){
             s->parsed.activeTime = true;
-            strncpy(s->values.activeTime, argValue, lenTime);
+            unsigned long nl = strchr(argValue, '\n') - argValue;
+            strncpy(s->values.activeTime, argValue, min(lenTime,nl));
         }else{
             s->error.activeTime = true;
             SettingsError_AddMessage(&s->error,MSG_PARSEERROR_ACTIVETIME);
@@ -188,17 +201,26 @@ void SettingsFromActual(struct Settings_t *s) {
     SettingsInit(s);
     int entry = 1;
     char line[200];
+    const int lenLogBuffer = 2000;
+    char logBuffer[lenLogBuffer];
+    int logPos = 0;
     printf("<!--\n"
-                   "DEBUG\n"
-                   "> /home/drh/configure ");
-    FILE* output = popen("/home/drh/configure ", "r");
+                   "DEBUG GET CURRENT SETTINGS\n"
+                   "> /home/drh/configure\n");
 
-    while ( fgets(line, 199, output) )
+    FILE* output = popen("/home/drh/configure", "r");
+
+    while ( fgets(line, 199, output) != NULL )
     {
-        printf("%s", line);
+        if(strlen(line)+logPos < lenLogBuffer){
+            strcat(logBuffer, line);
+            logPos += strlen(line);
+        }
         SettingsParsePair(s,line);
     }
-    printf("-->\n");
+    pclose(output);
+    strcat(logBuffer,"-->\n");
+    printf("%s",logBuffer);
 }
 
 void SettingsApply(struct Settings_t *s) {
@@ -235,7 +257,7 @@ void SettingsApply(struct Settings_t *s) {
     sprintf(command,"%s -p %s",programPath,argStr);
     char line[200];
     printf("<!--\n"
-                   "DEBUG\n"
+                   "DEBUG SETTINGS APPLY\n"
                    "> %s\n",command);
 
     FILE* output = popen(command, "r");
